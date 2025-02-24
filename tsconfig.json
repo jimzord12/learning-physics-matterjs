@@ -1,24 +1,44 @@
+// {
+//   "compilerOptions": {
+//     "target": "ES2020",
+//     "useDefineForClassFields": true,
+//     "module": "ESNext",
+//     "lib": ["ES2020", "DOM", "DOM.Iterable"],
+//     "skipLibCheck": true,
+//     "allowJs": true,
+//     "checkJs": true,
+
+//     /* Bundler mode */
+//     "moduleResolution": "bundler",
+//     "allowImportingTsExtensions": true,
+//     "isolatedModules": true,
+//     "moduleDetection": "force",
+//     "noEmit": true,
+
+//     /* Linting */
+//     "strict": true,
+//     "noUnusedLocals": true,
+//     "noUnusedParameters": true,
+//     "noFallthroughCasesInSwitch": true,
+//     "noUncheckedSideEffectImports": true
+//   },
+//   "include": ["src", "global.d.ts"]
+// }
+
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "useDefineForClassFields": true,
-    "module": "ESNext",
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "skipLibCheck": true,
-
-    /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "isolatedModules": true,
-    "moduleDetection": "force",
-    "noEmit": true,
-
-    /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "target": "es6", // 🎯 Target modern JS features (ES6+)
+    "module": "none", // 🌐 No module system (global mode)
+    "lib": ["dom", "es6"], // 🌎 Access DOM + ES6 APIs
+    "allowJs": true, // 📂 Allow JS files in the project
+    "checkJs": true, // ✅ Enable type-checking for JS files
+    "strict": true, // 🏹 Enable all strict type-checking options
+    "esModuleInterop": true, // 🔄 Ensure compatibility with CommonJS/ESM
+    "skipLibCheck": true, // 🚀 Skip checking library declaration files for faster builds
+    "types": ["p5", "matter-js"], // 🧩 Include p5.js and matter-js global typings
+    "baseUrl": ".", // 📁 Resolve paths relative to project root
+    "noEmit": true // 💡 Don't output compiled JS (useful for pure type-checking)
   },
-  "include": ["src"]
+  "include": ["src/**/*.js", "abcd.d.ts", "src/web-lesson-part2/ball.js"], // 🎨 Include all JS/TS files & global declarations
+  "exclude": ["node_modules"] // 🚫 Ignore dependencies
 }
