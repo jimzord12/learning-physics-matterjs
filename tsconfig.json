@@ -39,6 +39,6 @@
     "baseUrl": ".", // 📁 Resolve paths relative to project root
     "noEmit": true // 💡 Don't output compiled JS (useful for pure type-checking)
   },
-  "include": ["src/**/*.js", "abcd.d.ts", "src/web-lesson-part2/ball.js"], // 🎨 Include all JS/TS files & global declarations
+  "include": ["src/**/*.js", "types.d.ts", "src/classes/ball.js"], // 🎨 Include all JS/TS files & global declarations
   "exclude": ["node_modules"] // 🚫 Ignore dependencies
 }
