@@ -1,19 +1,21 @@
-/// <reference types="p5" />
-import { Engine, Render } from 'matter-js';
-import p5 from 'p5';
+import type { Engine } from 'matter-js';
+import * as p5 from 'p5';
 
-// ✅ Extend the built-in p5InstanceExtensions interface
-// declare module 'p5' {
-//   interface p5InstanceExtensions {
-//     /**
-//      * Custom print function for p5 instance.
-//      * @param message - The message to print.
-//      */
-//     p5Print(message: any): void;
-//   }
+// class StatsType {
+//   REVISION: number;
+//   dom: HTMLDivElement;
+
+//   /**
+//    * @param value 0:fps, 1: ms, 2: mb, 3+: custom
+//    */
+//   showPanel(value: number): void;
+//   begin(): void;
+//   end(): number;
+//   update(): void;
 // }
 
 declare global {
+  /// -- p5 -- ///
   // World Related
   const createCanvas: typeof p5.prototype.createCanvas;
   const background: typeof p5.prototype.background;
@@ -44,7 +46,9 @@ declare global {
   const mouseY: typeof p5.prototype.mouseY;
   const CENTER: typeof p5.prototype.CENTER;
 
-  // const Matter: typeof import('matter-js'); // ✅ Correct global Matter reference
+  // const Stats: Stat;
+
+  /// -- My Classes -- ///
   const Ball: {
     new (x: number, y: number, r: number, engine: Engine): {
       x: number;
@@ -84,6 +88,7 @@ declare global {
   const RectInstance: InstanceType<typeof Rect>;
 
   interface Window {
+    /// -- p5 -- ///d
     p5: typeof p5;
     setup: typeof p5.prototype.setup;
     draw: typeof p5.prototype.draw;
@@ -91,6 +96,7 @@ declare global {
     mousePressed: typeof p5.prototype.mousePressed;
     removeFromArray: <T>(arr: T[], value: T) => void;
 
+    /// -- My Classes -- ///
     Ball: typeof Ball;
     Rect: typeof Rect;
     BallInstance: InstanceType<typeof Ball>;

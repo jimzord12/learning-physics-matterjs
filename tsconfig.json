@@ -33,12 +33,13 @@
     "allowJs": true, // 📂 Allow JS files in the project
     "checkJs": true, // ✅ Enable type-checking for JS files
     "strict": true, // 🏹 Enable all strict type-checking options
+    "noImplicitAny": true,
     "esModuleInterop": true, // 🔄 Ensure compatibility with CommonJS/ESM
     "skipLibCheck": true, // 🚀 Skip checking library declaration files for faster builds
-    "types": ["p5", "matter-js"], // 🧩 Include p5.js and matter-js global typings
+    "types": ["p5", "matter-js", "stats"], // ⚠️⚠️⚠️ Explicitly include global type definitions
     "baseUrl": ".", // 📁 Resolve paths relative to project root
     "noEmit": true // 💡 Don't output compiled JS (useful for pure type-checking)
   },
-  "include": ["src/**/*.js", "types.d.ts", "src/classes/ball.js"], // 🎨 Include all JS/TS files & global declarations
-  "exclude": ["node_modules"] // 🚫 Ignore dependencies
+  "include": ["src/**/*.js", "*.ts"] // 🎨 Include all JS/TS files & global declarations
+  // "exclude": ["node_modules"] // 🚫 Ignore dependencies
 }
