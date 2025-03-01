@@ -1,5 +1,5 @@
 (function () {
-  class Rect {
+  class Rect extends Identifiable {
     /** @type {Matter.Body} */
     body;
 
@@ -11,17 +11,16 @@
      * @param {number} h
      * @param {import('matter-js').Engine} engine - The world's physics engine
      * @param {boolean} [isStatic = false]
-     *
      */
     constructor(x, y, w, h, engine, isStatic = false) {
+      super();
       this.x = x ?? 0;
       this.y = y ?? 0;
       this.w = w;
       this.h = h;
       this.isStatic = isStatic;
       this.body = Matter.Bodies.rectangle(x, y, w, h, { isStatic });
-
-      Matter.Composite.add(engine.world, this.body);
+      this.number = Matter.Composite.add(engine.world, this.body);
     }
 
     rotate() {

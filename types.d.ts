@@ -1,5 +1,6 @@
 import type { Engine } from 'matter-js';
 import * as p5 from 'p5';
+import { idGen as idGenerator } from 'src/utils/simpleIdGen';
 
 // class StatsType {
 //   REVISION: number;
@@ -45,6 +46,8 @@ declare global {
   const mouseX: typeof p5.prototype.mouseX;
   const mouseY: typeof p5.prototype.mouseY;
   const CENTER: typeof p5.prototype.CENTER;
+
+  const idGen: typeof idGenerator;
 
   // const Stats: Stat;
 
