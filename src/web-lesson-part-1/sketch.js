@@ -46,7 +46,7 @@
     Body.setAngle(ground_2.body, Math.PI / 2);
 
     grounds = [ground_1, ground_2, ground_3, ground_4];
-    console.log('All The Grounds: ', grounds);
+    // console.log('All The Grounds: ', grounds);
   };
 
   window.draw = function () {
@@ -65,16 +65,12 @@
       } else {
         g.show();
       }
-      // console.log('Ground: ', g);
-      // console.log("Body's Angle: ", g.body.angle);
     });
 
     stats.end();
   };
 
   window.mouseDragged = function () {
-    p5Print('AAAAAAA');
-
     const b = new Ball(0, 0, random(10, 30), engine);
     Body.setAngularVelocity(b.body, 0.05);
 
