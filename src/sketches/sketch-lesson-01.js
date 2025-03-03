@@ -2,10 +2,10 @@
 (function () {
   /**
    * This is how we combine TS with JSDoc - Using "typedef"
-   * @typedef {typeof RectInstance} RectInst
+   * @typedef {RectInstance} RectInst
    */
 
-  /** @typedef {typeof BallInstance} BallInst  */
+  /** @typedef  {BallInstance} BallInst  */
 
   const { Engine, Body } = Matter;
 

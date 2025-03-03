@@ -2,19 +2,6 @@ import type { Engine } from 'matter-js';
 import * as p5 from 'p5';
 import { idGen as idGenerator } from 'src/utils/simpleIdGen';
 
-// class StatsType {
-//   REVISION: number;
-//   dom: HTMLDivElement;
-
-//   /**
-//    * @param value 0:fps, 1: ms, 2: mb, 3+: custom
-//    */
-//   showPanel(value: number): void;
-//   begin(): void;
-//   end(): number;
-//   update(): void;
-// }
-
 declare global {
   /// -- p5 -- ///
   // World Related
@@ -49,46 +36,55 @@ declare global {
 
   const idGen: typeof idGenerator;
 
-  // const Stats: Stat;
-
   /// -- My Classes -- ///
-  const Ball: {
-    new (x: number, y: number, r: number, engine: Engine): {
-      x: number;
-      y: number;
-      r: number;
-      body: Matter.Body; // ✅ Now properly referenced from matter-js
-      show(): void;
-      isOffCanvas(canvasWidth, canvasHeight): boolean;
-      resetXY(): void;
-    };
-  };
+  // const Ball: {
+  //   new (x: number, y: number, r: number, engine: Engine): {
+  //     x: number;
+  //     y: number;
+  //     r: number;
+  //     body: Matter.Body; // ✅ Now properly referenced from matter-js
+  //     show(): void;
+  //     isOffCanvas(canvasWidth, canvasHeight): boolean;
+  //     resetXY(): void;
+  //   };
+  // };
 
-  const Rect: {
-    new (
+  class Ball {
+    constructor(x: number, y: number, r: number, engine: Engine);
+    x: number;
+    y: number;
+    r: number;
+    body: Matter.Body;
+    show(): void;
+    isOffCanvas(canvasWidth: number, canvasHeight: number): boolean;
+    resetXY(): void;
+  }
+
+  class Rect {
+    constructor(
       x: number,
       y: number,
       w: number,
       h: number,
       engine: Engine,
       isStatic?: boolean
-    ): {
-      x: number;
-      y: number;
-      w: number;
-      h: number;
-      isStatic: boolean;
-      body: Matter.Body;
-      show(): void;
-      getWidth(): void;
-      getHeight(): void;
-      resetXY(): void;
-      rotate(): void;
-    };
-  };
+    );
+    x: number;
+    y: number;
+    w: number;
+    h: number;
+    isStatic: boolean;
+    body: Matter.Body;
 
-  const BallInstance: InstanceType<typeof Ball>;
-  const RectInstance: InstanceType<typeof Rect>;
+    show(): void;
+    getWidth(): number;
+    getHeight(): number;
+    resetXY(): void;
+    rotate(): void;
+  }
+
+  type BallInstance = InstanceType<typeof Ball>;
+  type RectInstance = InstanceType<typeof Rect>;
 
   interface Window {
     /// -- p5 -- ///d
@@ -102,9 +98,9 @@ declare global {
     /// -- My Classes -- ///
     Ball: typeof Ball;
     Rect: typeof Rect;
-    BallInstance: InstanceType<typeof Ball>;
-    RectInstance: InstanceType<typeof Rect>;
+    BallInstance: Ball;
+    RectInstance: Rect;
   }
 }
 
-export {};
+export { BallInstance, RectInstance };

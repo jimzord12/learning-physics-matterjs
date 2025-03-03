@@ -1,3 +1,4 @@
+//@ts-check
 (function () {
   const { Engine, Body, Bodies, Composite } = Matter;
   const engine = Engine.create({

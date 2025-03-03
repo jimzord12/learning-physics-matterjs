@@ -1,3 +1,4 @@
+//@ts-check
 (function () {
   class Rect extends Identifiable {
     /** @type {Matter.Body} */
@@ -38,7 +39,7 @@
     }
 
     getWidth() {
-      dist(
+      return dist(
         this.body.vertices[0].x,
         this.body.vertices[0].y,
         this.body.vertices[1].x,
@@ -47,7 +48,7 @@
     }
 
     getHeight() {
-      dist(
+      return dist(
         this.body.vertices[1].x,
         this.body.vertices[1].y,
         this.body.vertices[2].x,
