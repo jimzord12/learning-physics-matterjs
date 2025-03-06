@@ -1,0 +1,68 @@
+//@ts-check
+(function () {
+  const { Engine, Composite, Render, Runner, Bodies, Body, Composites } =
+    Matter;
+  const engine = Engine.create();
+
+  const CANVAS_W = 800;
+  const CANVAS_H = 640;
+
+  window.setup = function () {
+    // createCanvas(CANVAS_W, CANVAS_H);
+    const render = Render.create({
+      element: document.body,
+      engine: engine,
+      options: {
+        width: CANVAS_W,
+        height: CANVAS_H,
+      },
+    });
+
+    const width = render.options.width ?? CANVAS_W / 2;
+    const height = render.options.height
+      ? render.options.height / 4
+      : CANVAS_H / 4;
+
+    // Create staff Here
+    const ballA = Bodies.circle(width / 2, height / 2, 10, { isStatic: true });
+    const ballB = Bodies.circle(100, 70, 20);
+    const ballC = Bodies.circle(230, 100, 20);
+    const ballD = Bodies.circle(260, 130, 20);
+    const ballE = Bodies.circle(290, 160, 20);
+
+    const balls = Composite.create({
+      label: 'balls',
+      bodies: [ballA, ballB, ballC, ballD, ballE],
+    });
+
+    Composites.chain(balls, 0, 0, -0.2, -0.2, {
+      stiffness: 0.025,
+      length: 40,
+      render: {
+        type: 'line',
+        strokeStyle: 'blue',
+        lineWidth: 2,
+      },
+    });
+
+    // Adding to the world
+    Composite.add(engine.world, balls);
+
+    Render.run(render);
+
+    // Running the Engine
+    /// Creating a runner
+    const runner = Runner.create();
+
+    Runner.run(runner, engine);
+    // Running the Engine
+  };
+
+  window.draw = function () {
+    // background(200);
+    // Engine.update(engine);
+  };
+
+  window.mouseDragged = function () {};
+  window.mousePressed = function () {};
+})();

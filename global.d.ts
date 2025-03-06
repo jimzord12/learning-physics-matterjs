@@ -1,16 +1,20 @@
 import type { Engine } from 'matter-js';
 import * as p5 from 'p5';
 import { idGen as idGenerator } from 'src/utils/simpleIdGen';
+import type { colorfulPalette } from './src/constants/colorPalette';
 
 declare global {
   /// -- p5 -- ///
   // World Related
   const createCanvas: typeof p5.prototype.createCanvas;
   const background: typeof p5.prototype.background;
+  const width: typeof p5.prototype.width;
+  const height: typeof p5.prototype.height;
 
   // Shape Creators
   const ellipse: typeof p5.prototype.ellipse;
   const rect: typeof p5.prototype.rect;
+  const line: typeof p5.prototype.line;
 
   // Shape Modifiers
   const fill: typeof p5.prototype.fill;
@@ -83,11 +87,31 @@ declare global {
     rotate(): void;
   }
 
+  class Bridge {
+    constructor(
+      engine: Engine,
+      ballAmount: number,
+      radius: number,
+      length: number
+    );
+
+    composite: Matter.Composite;
+    balls: BallInstance[];
+
+    show(): void;
+    removeWhenOffCanvas(canvasWidth: number, canvasHeight: number): void;
+    changeFirstBallPosition(x: number, y: number): void;
+    changeLastBallPosition(x: number, y: number): void;
+  }
+
   type BallInstance = InstanceType<typeof Ball>;
   type RectInstance = InstanceType<typeof Rect>;
+  type BridgeInstance = InstanceType<typeof Bridge>;
+
+  const colorfulPalette: string[];
 
   interface Window {
-    /// -- p5 -- ///d
+    /// -- p5 -- ///
     p5: typeof p5;
     setup: typeof p5.prototype.setup;
     draw: typeof p5.prototype.draw;
@@ -98,8 +122,10 @@ declare global {
     /// -- My Classes -- ///
     Ball: typeof Ball;
     Rect: typeof Rect;
+    Bridge: typeof Bridge;
     BallInstance: Ball;
     RectInstance: Rect;
+    BridgeInstance: Bridge;
   }
 }
 

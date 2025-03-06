@@ -3,15 +3,7 @@
 
   class Ball {
     /** @type {string[]} */
-    static colorPallete = [
-      '#16C47F',
-      '#FFD65A',
-      '#FF9D23',
-      '#F93827',
-      '#E53888',
-      '#FF6500',
-      '#66D2CE',
-    ];
+    static colors = colorfulPalette;
 
     /** @type {import('matter-js').Body} */
     body;
@@ -23,7 +15,7 @@
     magnitude = random(-5, 5);
 
     /** @type {string} */
-    color = random(Ball.colorPallete);
+    color = random(Ball.colors);
 
     /**
      * @param {number} x - The x position of the ball.
