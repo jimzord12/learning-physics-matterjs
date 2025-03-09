@@ -1,21 +1,18 @@
 //@ts-check
-(function () {
-  const { Engine, Composite } = Matter;
-  const engine = Engine.create();
+const engine = Matter.Engine.create();
 
-  const CANVAS_W = 400;
-  const CANVAS_H = 400;
+const CANVAS_W = 400;
+const CANVAS_H = 400;
 
-  window.setup = function () {
-    createCanvas(CANVAS_W, CANVAS_H);
-  };
+export const setup = function () {
+  createCanvas(CANVAS_W, CANVAS_H);
+};
 
-  window.draw = function () {
-    background(200);
+export const draw = function () {
+  background(200);
 
-    Engine.update(engine);
-  };
+  Matter.Engine.update(engine);
+};
 
-  window.mouseDragged = function () {};
-  window.mousePressed = function () {};
-})();
+export const mouseDragged = function () {};
+export const mousePressed = function () {};

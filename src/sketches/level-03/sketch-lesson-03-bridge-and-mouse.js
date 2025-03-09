@@ -1,8 +1,7 @@
 //@ts-check
 (function () {
-  const { Engine, Composite, Render, Runner, Bodies, Body, Composites } =
-    Matter;
-  const engine = Engine.create();
+  'use strict';
+  const engine = Matter.Engine.create();
   const world = engine.world;
 
   /** @type {BridgeInstance} */
@@ -11,20 +10,22 @@
   const CANVAS_W = 800;
   const CANVAS_H = 640;
 
-  window.setup = function () {
+  setup = function () {
     createCanvas(CANVAS_W, CANVAS_H);
 
     bridge = new Bridge(engine, 12, 20, 20);
   };
 
-  window.draw = function () {
+  draw = function () {
     background(200);
-    Engine.update(engine);
+    Matter.Engine.update(engine);
 
     bridge.show();
     bridge.removeWhenOffCanvas(width, height);
+
+    bridge.changeLastBallPosition(mouseX, mouseY);
   };
 
-  window.mouseDragged = function () {};
-  window.mousePressed = function () {};
+  mouseDragged = function () {};
+  mousePressed = function () {};
 })();

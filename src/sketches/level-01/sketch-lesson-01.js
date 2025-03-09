@@ -1,5 +1,7 @@
 //@ts-check
 (function () {
+  'use strict';
+
   /**
    * This is how we combine TS with JSDoc - Using "typedef"
    * @typedef {RectInstance} RectInst
@@ -7,21 +9,12 @@
 
   /** @typedef  {BallInstance} BallInst  */
 
-  const { Engine, Body } = Matter;
-
   // 📊 STATS
   const stats = new Stats();
   stats.showPanel(0);
   document.body.appendChild(stats.dom);
 
-  const p5Print = window.p5.prototype.print;
-
-  /**
-   *
-   * @param {BallInst} _rect
-   */
-
-  const engine = Engine.create({
+  const engine = Matter.Engine.create({
     gravity: {
       scale: 0.0005,
       x: 1,
@@ -35,7 +28,7 @@
   /** @type {RectInst[]} */
   let grounds = [];
 
-  window.setup = function () {
+  setup = function () {
     createCanvas(800, 800);
 
     const ground_1 = new Rect(200, 300, 800, 10, engine, true);
@@ -43,17 +36,17 @@
     const ground_3 = new Rect(200, 500, 800, 10, engine, true);
     const ground_4 = new Rect(490, 220, 150, 10, engine, true);
 
-    Body.setAngle(ground_2.body, Math.PI / 2);
+    Matter.Body.setAngle(ground_2.body, Math.PI / 2);
 
     grounds = [ground_1, ground_2, ground_3, ground_4];
     // console.log('All The Grounds: ', grounds);
   };
 
-  window.draw = function () {
+  draw = function () {
     stats.begin();
     background(200);
 
-    Engine.update(engine);
+    Matter.Engine.update(engine);
 
     boxes.forEach((b) => {
       b.show();
@@ -70,9 +63,9 @@
     stats.end();
   };
 
-  window.mouseDragged = function () {
+  mouseDragged = function () {
     const b = new Ball(0, 0, random(10, 30), engine);
-    Body.setAngularVelocity(b.body, 0.05);
+    Matter.Body.setAngularVelocity(b.body, 0.05);
 
     boxes.push(b);
   };

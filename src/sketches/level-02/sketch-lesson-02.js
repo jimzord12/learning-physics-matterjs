@@ -1,5 +1,7 @@
 //@ts-check
 (function () {
+  'use strict';
+
   const { Engine, Body, Bodies, Composite } = Matter;
   const engine = Engine.create({
     gravity: {
@@ -18,7 +20,7 @@
    * @property {number} x
    * @property {number} y
    * @property {number} r
-   * @property {Matter.Body} body
+   * @property {InstanceType<typeof Matter.Body>} body
    * @property {() => void} show
    * @property {(canvasWidth: number, canvasHeight:number) => boolean} isOffCanvas
    */
@@ -26,11 +28,11 @@
   /** @type {Ball[]} */
   const balls = [];
 
-  window.setup = function () {
+  setup = function () {
     createCanvas(CANVAS_W, CANVAS_H);
   };
 
-  window.draw = function () {
+  draw = function () {
     background(200);
 
     Engine.update(engine);
@@ -49,11 +51,11 @@
     }
   };
 
-  window.mouseDragged = function () {
+  mouseDragged = function () {
     balls.unshift(new Ball(mouseX, mouseY, random(10, 30), engine));
   };
 
-  // window.mousePressed = function () {
+  // mousePressed = function () {
   //   balls.push(new Ball(mouseX, mouseY, random(10, 30), engine));
   // };
 })();

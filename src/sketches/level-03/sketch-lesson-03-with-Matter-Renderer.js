@@ -1,15 +1,13 @@
 //@ts-check
 (function () {
-  const { Engine, Composite, Render, Runner, Bodies, Body, Composites } =
-    Matter;
-  const engine = Engine.create();
+  const engine = Matter.Engine.create();
 
   const CANVAS_W = 800;
   const CANVAS_H = 640;
 
-  window.setup = function () {
+  const setup = function () {
     // createCanvas(CANVAS_W, CANVAS_H);
-    const render = Render.create({
+    const render = Matter.Render.create({
       element: document.body,
       engine: engine,
       options: {
@@ -24,11 +22,13 @@
       : CANVAS_H / 4;
 
     // Create staff Here
-    const ballA = Bodies.circle(width / 2, height / 2, 10, { isStatic: true });
-    const ballB = Bodies.circle(100, 70, 20);
-    const ballC = Bodies.circle(230, 100, 20);
-    const ballD = Bodies.circle(260, 130, 20);
-    const ballE = Bodies.circle(290, 160, 20);
+    const ballA = Matter.Bodies.circle(width / 2, height / 2, 10, {
+      isStatic: true,
+    });
+    const ballB = Matter.Bodies.circle(100, 70, 20);
+    const ballC = Matter.Bodies.circle(230, 100, 20);
+    const ballD = Matter.Bodies.circle(260, 130, 20);
+    const ballE = Matter.Bodies.circle(290, 160, 20);
 
     const balls = Composite.create({
       label: 'balls',
@@ -48,21 +48,21 @@
     // Adding to the world
     Composite.add(engine.world, balls);
 
-    Render.run(render);
+    Matter.Render.run(render);
 
     // Running the Engine
     /// Creating a runner
-    const runner = Runner.create();
+    const runner = Matter.Runner.create();
 
-    Runner.run(runner, engine);
+    Matter.Runner.run(runner, engine);
     // Running the Engine
   };
 
-  window.draw = function () {
+  const draw = function () {
     // background(200);
     // Engine.update(engine);
   };
 
-  window.mouseDragged = function () {};
-  window.mousePressed = function () {};
+  const mouseDragged = function () {};
+  const mousePressed = function () {};
 })();
