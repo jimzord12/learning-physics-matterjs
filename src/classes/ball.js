@@ -1,4 +1,4 @@
-class Ball {
+class Ball extends Identifiable {
   /** @type {string[]} */
   static colors = colorfulPalette;
 
@@ -9,7 +9,7 @@ class Ball {
   // isOffBounds = false;
 
   /** @type {number} */
-  magnitude = random(-5, 5);
+  magnitude = random(-10, 10);
 
   /** @type {string} */
   color = random(Ball.colors);
@@ -18,30 +18,31 @@ class Ball {
    * @param {number} x - The x position of the ball.
    * @param {number} y - The y position of the ball.
    * @param {number} r - The radius of the ball.
-   * @param {import('matter-js').Engine} engine - The world's physics engine
    */
-  constructor(x, y, r, engine) {
+  constructor(x, y, r) {
+    super();
     this.x = x;
     this.y = y;
     this.r = r;
     this.body = Matter.Bodies.circle(x, y, r, {
-      restitution: 0.8,
-      velocity: Vector.create(this.magnitude, this.magnitude),
+      // restitution: 0.8,
+      // velocity: Matter.Vector.create(this.magnitude, this.magnitude),
     });
 
-    Composite.add(engine.world, this.body);
+    // Matter.Composite.add(engine.world, this.body);
+    // Matter.World.add(engine.world, this.body);
   }
 
   /**
    * Displays the ball using p5.js.
    */
   show() {
-    const pos = this.body.position;
-    push();
-    translate(pos.x, pos.y);
+    const { x, y } = this.body.position;
+    // push();
+    // translate(pos.x, pos.y);
     fill(this.color); // ⚠️ You must first fill it, and then create it xD
-    ellipse(0, 0, this.r * 2);
-    pop();
+    ellipse(x, y, this.r * 2);
+    // pop();
   }
 
   /**

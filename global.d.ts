@@ -2,6 +2,7 @@ import matter from 'matter-js';
 import p5 from 'p5';
 import { idGen as idGenerator } from 'src/utils/simpleIdGen';
 import type { colorfulPalette } from './src/constants/colorPalette';
+import { HandTrackingData, HandTrackingInstance } from './types/ml5-types';
 
 interface ml5 {
   handPose: () => void;
@@ -13,6 +14,8 @@ declare global {
 
   /// -- ml5 -- ///
   const ml5: typeof ml5;
+  type HandData = HandTrackingData;
+  type HandPose = HandTrackingInstance;
 
   /// -- p5 -- ///
   // World Related
@@ -29,7 +32,8 @@ declare global {
   let draw: typeof p5.prototype.draw;
   let mouseDragged: typeof p5.prototype.mouseDragged;
   let mousePressed: typeof p5.prototype.mousePressed;
-  let videoCaptureConstraints: typeof p5.prototype.createC;
+
+  type p5Element = InstanceType<typeof p5.Element>;
 
   // Shape Creators
   const ellipse: typeof p5.prototype.ellipse;

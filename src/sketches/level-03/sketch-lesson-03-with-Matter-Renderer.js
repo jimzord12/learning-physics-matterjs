@@ -30,12 +30,12 @@
     const ballD = Matter.Bodies.circle(260, 130, 20);
     const ballE = Matter.Bodies.circle(290, 160, 20);
 
-    const balls = Composite.create({
+    const balls = Matter.Composite.create({
       label: 'balls',
       bodies: [ballA, ballB, ballC, ballD, ballE],
     });
 
-    Composites.chain(balls, 0, 0, -0.2, -0.2, {
+    Matter.Composites.chain(balls, 0, 0, -0.2, -0.2, {
       stiffness: 0.025,
       length: 40,
       render: {
@@ -46,7 +46,7 @@
     });
 
     // Adding to the world
-    Composite.add(engine.world, balls);
+    Matter.Composite.add(engine.world, balls);
 
     Matter.Render.run(render);
 

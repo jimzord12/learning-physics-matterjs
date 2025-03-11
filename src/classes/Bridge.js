@@ -1,14 +1,15 @@
-const { Composite, Composites, Vector } = Matter;
-
 class Bridge {
   /** @type {string[]} */
   static colors = colorfulPalette;
 
   /** @type {import('matter-js').Composite} */
-  composite = Composite.create();
+  chains = Matter.Composite.create();
 
   /** @type {Ball[]} */
   balls = [];
+
+  /** @type {import('matter-js').Body[]} */
+  ballBodies = [];
 
   /**
    * @param {import('matter-js').Engine} engine - The world's physics engine
@@ -17,27 +18,31 @@ class Bridge {
    * @param {number} length - The length of each constraint
    */
   constructor(engine, ballAmount, radius, length) {
+    const startingPointX = width / 2;
+    const startingPointY = height / 4;
     for (let i = 0; i < ballAmount; i++) {
-      const x = width / 2;
-      const y = i * 50 + 50;
-      const ball = new Ball(x, y, radius, engine);
+      const x = startingPointX;
+      const y = startingPointY + i * length;
+      const ball = new Ball(x, y, radius);
       this.balls.push(ball);
-      Composite.add(this.composite, ball.body);
+      this.ballBodies.push(ball.body);
     }
 
-    this.composite.label = 'balls';
-    this.composite.bodies[0].isStatic = true;
-    this.composite.bodies[ballAmount - 1].isStatic = true;
-    Composites.chain(this.composite, 0, 0, 0, 0, {
-      stiffness: 0.05,
-      length: length,
+    this.chains.label = 'balls';
+    Matter.Body.setStatic(this.ballBodies[0], true);
+    Matter.Composite.add(this.chains, this.ballBodies);
+    // this.chains.bodies[ballAmount - 1].isStatic = true;
+    Matter.Composites.chain(this.chains, 0, 0, 0, 0, {
+      stiffness: 1,
+      length,
     });
 
-    this.changeFirstBallPosition(width - 0.9 * width, height / 4);
+    this.changeFirstBallPosition(startingPointX, startingPointY);
 
-    this.changeLastBallPosition(width - 0.1 * width, height / 4);
+    // this.changeLastBallPosition(width - 0.1 * width, height / 2);
 
-    Composite.add(engine.world, this.composite);
+    Matter.Composite.add(engine.world, this.chains);
+    // Matter.World.add(engine.world, this.chains);
   }
 
   /**
@@ -48,6 +53,9 @@ class Bridge {
       const thisBall = this.balls[i];
       const nextBall = this?.balls[i + 1];
       thisBall.show();
+
+      // const { x, y } = this.balls[3].body.position;
+      // console.log('Ball #3: ', x, y);
       if (!nextBall) break;
       line(
         thisBall.body.position.x,
@@ -67,7 +75,7 @@ class Bridge {
     for (const ball of this.balls) {
       if (ball.isOffCanvas(canvasWidth, canvasHeight)) {
         console.log('Removing Ball: ', ball);
-        Composite.remove(this.composite, ball.body);
+        Matter.Composite.remove(this.chains, ball.body);
         this.balls.splice(this.balls.indexOf(ball), 1);
       }
     }
@@ -80,7 +88,7 @@ class Bridge {
    */
   changeFirstBallPosition(x, y) {
     if (this.balls.length === 0) return;
-    this.balls[0].body.position = Vector.create(x, y);
+    Matter.Body.setPosition(this.balls[0].body, { x, y });
   }
 
   /**
@@ -90,6 +98,6 @@ class Bridge {
    */
   changeLastBallPosition(x, y) {
     if (this.balls.length === 0) return;
-    this.balls[this.balls.length - 1].body.position = Vector.create(x, y);
+    Matter.Body.setPosition(this.balls[this.balls.length - 1].body, { x, y });
   }
 }

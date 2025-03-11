@@ -2,7 +2,15 @@
 (function () {
   const { Engine } = Matter;
 
-  const engine = Engine.create();
+  /** @type {InstanceType<typeof Matter.Mouse>}  */
+  let mouse;
+  let mouseConstraint;
+
+  const engine = Engine.create({
+    timing: {
+      timeScale: 1,
+    },
+  });
   console.log(engine);
 
   /** @type {BridgeInstance} */
@@ -15,7 +23,13 @@
   setup = function () {
     createCanvas(CANVAS_W, CANVAS_H);
 
-    bridge = new Bridge(engine, 12, 20, 20);
+    mouse = Matter.Mouse.create(document.body);
+    mouseConstraint = Matter.MouseConstraint.create(engine, {
+      mouse,
+    });
+
+    bridge = new Bridge(engine, 15, 10, 25);
+    Matter.Composite.add(engine.world, [mouseConstraint]);
   };
 
   draw = function () {

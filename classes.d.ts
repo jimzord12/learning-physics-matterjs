@@ -1,7 +1,15 @@
 import { Engine } from 'matter-js';
+import { idGen as idGenerator } from 'src/utils/simpleIdGen';
+
+declare class Identifiable {
+  constructor();
+  id: number;
+  static idGenerator: Generator;
+  static createId: number;
+}
 
 declare class Ball {
-  constructor(x: number, y: number, r: number, engine: Engine);
+  constructor(x: number, y: number, r: number);
   x: number;
   y: number;
   r: number;
